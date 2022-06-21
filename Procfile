@@ -1,1 +1,1 @@
-web: vendor/bin/heroku-php-apache2  git initpublic/
+web: vendor/bin/heroku-php-apache2 public/
