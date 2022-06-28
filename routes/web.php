@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return view('welcome');
-    return "diet Project";
+    // return "diet Project";
+    echo asset('storage\app\Exercise\video\A3lqbsb6qeca98IwABujX4zyoBBc2p5foUhm27NF.mp4');
 });
