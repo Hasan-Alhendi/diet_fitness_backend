@@ -15,14 +15,16 @@ class ExerciseController extends Controller
     use ExerciseTrait;
 
     public function addExercise(Request $request){
-        $video_path  =  $request -> file('video_exercise') -> store('Exercise\video');
-        $exercise_image_path =  $request -> file('exercise_image') -> store('Exercise\Image');
-        $muscle_image_path = $request -> file('muscle_image') -> store('Exercise\muscleImage');
+        // $video_path  =  $request -> file('video_exercise') -> store('Exercise\video');
+        // $exercise_image_path =  $request -> file('exercise_image') -> store('Exercise\Image');
+        // $muscle_image_path = $request -> file('muscle_image') -> store('Exercise\muscleImage');
+        $exercise_photo_path = $this -> saveImage($request -> photo_exercise , 'Exercise/Image');
+        $muscle_photo_path = $this -> saveImage($request -> photo_muscle , 'Exercise/muscleImage');
         $exercise  = new Exercise();
         $exercise -> exercise_name = $request -> exercise_name;
-        $exercise -> video_path = $video_path;
-        $exercise -> exercise_image = $exercise_image_path;
-        $exercise -> muscle_image = $muscle_image_path;
+        $exercise -> video_path =  $request -> video_path;
+        $exercise -> exercise_image = $exercise_photo_path;
+        $exercise -> muscle_image = $muscle_photo_path;
         $exercise -> description = $request -> description;
         $exercise -> count = $request -> count;
         $exercise -> time = $request -> time;
