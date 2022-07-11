@@ -51,6 +51,8 @@ class DietExpire extends Command
 
                 }
         }
-        (new NotificationController) -> sendNotification($FcmToken->all());
+        $title = 'تذكير';
+        $body = 'تم مرور 20 يوم على استخدام الدايت الحالي. يرجى الاطلاع ';
+        (new NotificationController) -> sendNotification($FcmToken->all(), $title, $body);
     }
 }

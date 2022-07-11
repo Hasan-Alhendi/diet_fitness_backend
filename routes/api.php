@@ -22,6 +22,8 @@ use App\Http\Controllers\Api\Exercise\UserExerciseController;
 use App\Http\Controllers\Api\Exercise\DayExerciseTrainningController;
 use App\Http\Controllers\Api\User\UserDietAssesementController;
 use App\Http\Controllers\Api\User\NotificationController;
+use App\Http\Controllers\Api\User\MealReminderController;
+use App\Http\Controllers\Api\User\ExerciseReminderController;
 
 //Route User
 
@@ -71,8 +73,8 @@ use App\Http\Controllers\Api\User\NotificationController;
             Route::post('save-training-exercise',[UserExerciseController::class,'saveUserExercise']);
             Route::get('get-all-training-exercise',[TrainingExercisesController::class,'getAllUserTrainingExercise']);
             Route::post('store-token', [NotificationController::class, 'storeToken']);
-
-
+            Route::post('save-meal-reminder', [MealReminderController::class, 'SaveMealReminder']);
+            Route::post('save-exercise-reminder', [ExerciseReminderController::class, 'SaveExerciseReminder']);
         });
 
 

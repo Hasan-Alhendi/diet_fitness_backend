@@ -22,7 +22,7 @@ class NotificationController extends Controller
     }
 
 
-    public function sendNotification($FcmToken){
+    public function sendNotification($FcmToken, $title, $body){
         //         $FcmToken = collect();
         // $FcmToken -> push(User::find(1) -> device_key);
 
@@ -38,7 +38,7 @@ class NotificationController extends Controller
 
                     "notification" => [
                         "title" => 'عمار',
-                        "body" => 'تم مرور 20 يوم على استخدام الدايت الحالي. يرجى الاطلاع ',
+                        "body" => $body,
                         "sound" => "default"   //For notification sound in ios
                     ]
                 ];
