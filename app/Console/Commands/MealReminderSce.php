@@ -43,8 +43,8 @@ class MealReminderSce extends Command
                                 ->orwhere("third_meal_time",$time_reminder)->get();
         $FcmToken = collect();
 
-        foreach ($user_meal_reminders as $meal_reminders) {
-            $FcmToken -> push(User::find($user_meal_reminders -> user_id) -> device_key);
+        foreach ($user_meal_reminders as $meal_reminder) {
+            $FcmToken -> push(User::find($meal_reminder -> user_id) -> device_key);
         }
         $title = 'تذكير';
         $body = 'حان موعد تناول وجبة الطعام';

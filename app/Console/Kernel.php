@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('user_diet:active')->everyMinute();
         $schedule->command('meal:reminder')->everyMinute();
+        $schedule->command('exercise:reminder')->dailyAt('6:00');;
     }
 
 
