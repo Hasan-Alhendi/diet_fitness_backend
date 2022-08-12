@@ -33,6 +33,10 @@ use App\Http\Controllers\Api\User\ExerciseReminderController;
 
 
     });
+    
+
+    Route::post('test',[AuthController::class,'test']);
+
 
 
     Route::group(['prefix' => 'admin','namespace' => 'Admin'],function(){
@@ -45,6 +49,7 @@ use App\Http\Controllers\Api\User\ExerciseReminderController;
         //Route User
         Route::group(['prefix' => 'user'],function()
         {
+            Route::get('get-information-user',[UserController::class,'getInfoUser']);
             Route::post('logout',[AuthController::class,'logout']);
             Route::post('add-activity',[ActivityController::class,'addActivityUser']);
             Route::post('set-goal',[GoalController::class,'setGoalUser']);

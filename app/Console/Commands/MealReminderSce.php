@@ -37,7 +37,7 @@ class MealReminderSce extends Command
 
     public function handle()
     {
-        $time_reminder = Carbon::now()->subMinutes(15)->format('H:i');
+        $time_reminder = Carbon::now()->format('H:i');
         $user_meal_reminders =  MealReminder::where("first_meal_time", $time_reminder)
                                 ->orWhere("second_meal_time", $time_reminder)
                                 ->orwhere("third_meal_time",$time_reminder)->get();

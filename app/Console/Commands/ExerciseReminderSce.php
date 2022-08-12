@@ -49,7 +49,7 @@ class ExerciseReminderSce extends Command
         foreach ($user_exercise_reminders as $exercise_reminder) {
             $FcmToken -> push(User::find($exercise_reminder -> user_id) -> device_key);
         }
-
+        
         $title = 'تذكير';
         $body = 'لديك تمرين اليوم';
         (new NotificationController) -> sendNotification($FcmToken->all(), $title, $body);

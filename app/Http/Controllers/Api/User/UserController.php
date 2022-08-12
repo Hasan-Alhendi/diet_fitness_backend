@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\User\WeightController;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Weight;
@@ -96,6 +97,18 @@ class UserController extends Controller
         $users =  User::all();
         return $this->returnData('users',$users);
     }
+
+    public function getInfoUser()
+    {
+        $user = auth()->user();
+        $user_coll =  collect($user);
+        if($user -> first_name != null ){
+            $weight = (new WeightController) -> getCurrentWeightUser($user -> id);
+            $user_coll->put('weight', $weight);
+        }
+        return  $this->returnData("user",$user_coll);
+    }
+
 
     public function getRulesInfo(){
         return [

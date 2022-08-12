@@ -37,7 +37,7 @@ class NotificationController extends Controller
                     "registration_ids" => $FcmToken,
 
                     "notification" => [
-                        "title" => 'عمار',
+                        "title" => $title,
                         "body" => $body,
                         "sound" => "default"   //For notification sound in ios
                     ]

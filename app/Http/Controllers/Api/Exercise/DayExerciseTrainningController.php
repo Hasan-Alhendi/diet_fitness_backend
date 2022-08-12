@@ -41,12 +41,15 @@ class DayExerciseTrainningController extends Controller
     //    echo  storage_path('app\\');
     //    return;
         $day_exercise_trainnings = DayExerciseTrainning::with('exercises')->where('id',$id)->get();
-
         foreach ($day_exercise_trainnings as $day_exercise_trainning) {
             foreach ($day_exercise_trainning -> exercises as $exercise) {
-                $exercise -> video_path = storage_path('app\\'). $exercise -> video_path;
-                $exercise -> exercise_image = storage_path('app\\'). $exercise -> exercise_image;
-                $exercise -> muscle_image = storage_path('app\\'). $exercise -> muscle_image;
+                // $exercise -> video_path = storage_path('app\\'). $exercise -> video_path;
+                // $exercise -> exercise_image = storage_path('app\\'). $exercise -> exercise_image;
+                // $exercise -> muscle_image = storage_path('app\\'). $exercise -> muscle_image;
+
+                $exercise -> video_path =  $exercise -> video_path;
+                $exercise -> exercise_image =  $exercise -> exercise_image;
+                $exercise -> muscle_image =  $exercise -> muscle_image;
             }
         }
         return $this->returnData('day_exercise_trainning', $day_exercise_trainnings);

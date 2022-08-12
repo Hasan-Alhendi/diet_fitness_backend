@@ -23,6 +23,7 @@ use Carbon\Carbon;
 use App\Models\Activity_User;
 use App\Models\Food;
 use App\Models\UserDiet;
+use App\Models\Health_status_user;
 
 class DietController extends Controller
 {
@@ -39,12 +40,13 @@ class DietController extends Controller
         $response = Gate::inspect('admin-only');
         if ($response->allowed()) {
             $diet = new Diet;
-            $diet->calory = $request->calory;
-            $diet->model_number = $request->model_number;
-            $diet->protien = $request->protien;
-            $diet->carbohydrate = $request->carbohydrate;
-            $diet->fats = $request->fats;
-            $diet->save();
+            $diet-> state_id = $request-> state_id;
+            $diet-> calory = $request-> calory;
+            $diet-> model_number = $request-> model_number;
+            $diet-> protien = $request-> protien;
+            $diet-> carbohydrate = $request-> carbohydrate;
+            $diet-> fats = $request-> fats;
+            $diet-> save();
             foreach($request->meals as $meal){
                 $m  = new Meal;
                 $m->type = $meal['type'];
@@ -142,7 +144,8 @@ class DietController extends Controller
         $age = Carbon::parse($user->birth_date)->age;
         $TEE =  $this->TEE($weight,$user->height,$age,$user->gender, $activity_factor);
         $calory = $this -> getCalory($TEE,$goal_id);
-        $diets = Diet::with('meals') -> where('calory', $calory)->get();
+        $health_status_user = Health_status_user::where('user_id', $user -> id)->get();
+        $diets = Diet::with('meals') -> where('calory', $calory) -> where('state_id',$health_status_user[0] ->health_status_id)->get();
         $diets_collection = collect();
         foreach ($diets as $diet) {
             $diets_collection -> push($this -> filterDiet($diet, $user));

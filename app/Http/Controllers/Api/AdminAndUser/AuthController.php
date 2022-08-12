@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Controllers\Api\User\WeightController;
+use Carbon\Carbon;
+use App\Models\ExeciseReminder;
+use App\Models\User;
 
 
 class AuthController extends Controller
@@ -54,12 +58,18 @@ public function login(Request $request){
         if($user){
             if($user->level  === 0)
             {
-                return  $this->returnData("User",$user);
+                $user_coll =  collect($user);
+                if($user -> first_name != null){
+                    $weight = (new WeightController) -> getCurrentWeightUser($user -> id);
+                    $user_coll->put('weight', $weight);
+                }
+
+                return  $this->returnData("User",$user_coll);
             }else{
                 return $this->returnError('E000','You must be an user.');
             }
         }else{
-           return  $this->returnError('E001','بيانات الدخول غير صحيحة');
+            return  $this->returnError('E001','بيانات الدخول غير صحيحة');
         }
     }
 
@@ -90,5 +100,21 @@ public function login(Request $request){
         }else{
             return $this -> returnError('E000','some thing went wrongs');
         }
+    }
+
+
+    public function test (){
+            $dayOfTheWeek = Carbon::now()->dayOfWeek;
+            $user_exercise_reminders =  ExeciseReminder::where("first_day", $dayOfTheWeek)
+                                        ->orWhere("second_day", $dayOfTheWeek)
+                                        ->orwhere("third_day",$dayOfTheWeek)
+                                        ->orwhere("fourth_day",$dayOfTheWeek)
+                                        ->orwhere("fifth_day",$dayOfTheWeek)
+                                        ->get();
+                                        $FcmToken = collect();
+                                        foreach ($user_exercise_reminders as $exercise_reminder) {
+                                            $FcmToken -> push(User::find($exercise_reminder -> user_id) -> device_key);
+                                        }
+        return  $FcmToken;
     }
 }
